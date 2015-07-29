@@ -15,12 +15,12 @@ function sendEmailsToSlack() {
         Logger.log(message);
 
         var output = '*New Email*';
-        output += '\nfrom: ' + message.getFrom();
-        output += '\nto: ' + message.getTo();
-        output += '\ncc: ' + message.getCc();
-        output += '\ndate: ' + message.getDate();
-        output += '\nsubject: ' + message.getSubject();
-        output += '\nbody: ' + message.getPlainBody();
+        output += '\n*from:* ' + message.getFrom();
+        output += '\n*to:* ' + message.getTo();
+        output += '\n*cc:* ' + message.getCc();
+        output += '\n*date:* ' + message.getDate();
+        output += '\n*subject:* ' + message.getSubject();
+        output += '\n*body:* ' + message.getPlainBody();
         Logger.log(output);
 
         var payload = {
