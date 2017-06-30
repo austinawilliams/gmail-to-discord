@@ -1,8 +1,8 @@
-// You will also need to create a gmail filter to add the 'send-to-slack' label
-// to any emails you want sent to slack
+// You will also need to create a gmail filter to add the 'discord' label
+// to any emails you want sent to discord
 
-function sendEmailsToSlack() {
-    var label = GmailApp.getUserLabelByName('send-to-slack');
+function sendEmailsToDiscord() {
+    var label = GmailApp.getUserLabelByName('discord');
     var messages = [];
     var threads = label.getThreads();
   
@@ -14,20 +14,18 @@ function sendEmailsToSlack() {
         var message = messages[i];
         Logger.log(message);
 
-        var output = '*New Email*';
+        var output = '\n*New Email*';
         output += '\n*from:* ' + message.getFrom();
-        output += '\n*to:* ' + message.getTo();
-        output += '\n*cc:* ' + message.getCc();
+        //output += '\n*to:* ' + message.getTo();
+        //output += '\n*cc:* ' + message.getCc();
         output += '\n*date:* ' + message.getDate();
         output += '\n*subject:* ' + message.getSubject();
         output += '\n*body:* ' + message.getPlainBody();
         Logger.log(output);
 
         var payload = {
-            'username': 'Monkeybot',
-            'text': output,
-            'channel' : '#some-channel',
-            'icon_emoji': ':hear_no_evil:',
+            'username': 'Forum Updates Bot',
+            'content': output,
         };
 
         var options = {
@@ -35,9 +33,11 @@ function sendEmailsToSlack() {
             'payload' : Utilities.jsonStringify(payload),
         };
 
-        // replace this with your own Slack webhook URL
+        // replace this with your own Discord webhook URL
         // https://crowdscores.slack.com/services
-        var webhookUrl = 'https://hooks.slack.com/services/****/****/****';
+        var webhookURL = '';
+        if (message.getSubject() == "Office of Citizenship has a new topic"){webhookUrl = 'https://discordapp.com/api/webhooks/XXXXXX';}
+        else{webhookUrl = 'https://discordapp.com/api/webhooks/XXXXXXXX';}
         UrlFetchApp.fetch(webhookUrl, options);
    }
 
